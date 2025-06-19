@@ -216,7 +216,7 @@ export default async function Home() {
             {featuredBrands.map((brand) => (
               <Link
                 key={brand.id}
-                href={`/brands/${brand.id}`}
+                href={`/brands`}
                 className="group flex flex-col items-center p-6 bg-gray-50 rounded-xl hover:bg-blue-50 transition-colors"
               >
                 <div className="p-3 rounded-lg bg-white group-hover:bg-blue-100 transition-colors mb-3">

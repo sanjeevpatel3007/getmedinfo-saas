@@ -3,7 +3,7 @@
 import { Mail, Phone, MapPin, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { submitContactForm } from '@/action/contact.action';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Contact() {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,10 @@ export default function Contact() {
 
     try {
       await submitContactForm(formData);
-      toast.success('Message sent successfully! We\'ll get back to you soon.');
+      toast.success('Message sent successfully! We\'ll get back to you soon.', {
+        duration: 5000,
+        position: 'top-center',
+      });
       // Reset form
       setFormData({
         name: '',
@@ -38,7 +41,10 @@ export default function Contact() {
       });
     } catch (error) {
       console.error('Error:', error);
-      toast.error('Failed to send message. Please try again.');
+      toast.error('Failed to send message. Please try again.', {
+        duration: 5000,
+        position: 'top-center',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -46,6 +52,7 @@ export default function Contact() {
 
   return (
     <div className="w-full py-16">
+      <Toaster />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
