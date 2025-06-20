@@ -235,3 +235,26 @@ export async function fetchMedicinesByCategoryId(categoryId: string): Promise<Me
   if (error) throw error;
   return data;
 }
+
+export async function fetchMedicinesByBrandId(brandId: string): Promise<Medicine[]> {
+  const { data, error } = await supabase
+    .from('medicines')
+    .select(`
+      *,
+      brand:brands (
+        id, name, country
+      ),
+      category:categories (
+        id, name, description
+      )
+    `)
+    .eq('brand_id', brandId)
+    .limit(5);
+  
+  if (error) {
+    console.error('Error fetching medicines by brand:', error);
+    return [];
+  }
+  
+  return data || [];
+}
