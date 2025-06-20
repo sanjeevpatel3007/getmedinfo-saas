@@ -28,19 +28,12 @@ export default function Contact() {
 
     try {
       await submitContactForm(formData);
-      toast.success('Message sent successfully! We\'ll get back to you soon.', {
+      toast.success("Message sent successfully! We'll get back to you soon.", {
         duration: 5000,
         position: 'top-center',
       });
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
+      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      console.error('Error:', error);
       toast.error('Failed to send message. Please try again.', {
         duration: 5000,
         position: 'top-center',
@@ -51,73 +44,39 @@ export default function Contact() {
   };
 
   return (
-    <div className="w-full py-16">
+    <div className="w-full py-20 bg-gradient-to-b from-white to-blue-50">
       <Toaster />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Contact Us
-          </h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Have questions or suggestions? We'd love to hear from you.
+            Have questions, suggestions, or feedback? We’d love to hear from you.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="bg-white rounded-lg shadow-sm p-8">
+          <div className="bg-white rounded-3xl shadow-md p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Your name"
-                  disabled={isLoading}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="your@email.com"
-                  disabled={isLoading}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="How can we help?"
-                  disabled={isLoading}
-                />
-              </div>
+              {['name', 'email', 'subject'].map((field) => (
+                <div key={field}>
+                  <label htmlFor={field} className="block text-sm font-medium text-gray-700 mb-1 capitalize">
+                    {field}
+                  </label>
+                  <input
+                    type={field === 'email' ? 'email' : 'text'}
+                    id={field}
+                    name={field}
+                    value={formData[field as keyof typeof formData]}
+                    onChange={handleChange}
+                    required
+                    disabled={isLoading}
+                    placeholder={`Enter your ${field}`}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+                  />
+                </div>
+              ))}
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
@@ -126,20 +85,20 @@ export default function Contact() {
                 <textarea
                   id="message"
                   name="message"
+                  rows={4}
+                  required
                   value={formData.message}
                   onChange={handleChange}
-                  required
-                  rows={4}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Your message..."
                   disabled={isLoading}
+                  placeholder="Your message..."
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full inline-flex items-center justify-center bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full inline-flex items-center justify-center bg-blue-600 text-white py-3 px-5 rounded-xl hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>
@@ -153,58 +112,46 @@ export default function Contact() {
             </form>
           </div>
 
-          {/* Contact Information */}
+          {/* Contact Info */}
           <div className="space-y-8">
-            <div className="bg-white rounded-lg shadow-sm p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Get in Touch
-              </h2>
-              
+            <div className="bg-white rounded-3xl shadow-md p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h2>
               <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Mail className="h-6 w-6 text-blue-600" />
+                {[
+                  { icon: Mail, label: 'Email', value: 'info@getmedinfo.com' },
+                  { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567' },
+                  {
+                    icon: MapPin,
+                    label: 'Office',
+                    value: (
+                      <>
+                        123 Medical Plaza<br />
+                        Suite 456<br />
+                        New York, NY 10001
+                      </>
+                    ),
+                  },
+                ].map(({ icon: Icon, label, value }, idx) => (
+                  <div key={idx} className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <Icon className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-medium text-gray-900">{label}</h3>
+                      <p className="text-gray-600">{value}</p>
+                    </div>
                   </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">Email</h3>
-                    <p className="text-gray-600">info@getmedinfo.com</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <Phone className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">Phone</h3>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="flex-shrink-0">
-                    <MapPin className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">Office</h3>
-                    <p className="text-gray-600">
-                      123 Medical Plaza<br />
-                      Suite 456<br />
-                      New York, NY 10001
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                Office Hours
-              </h2>
-              <div className="space-y-2">
-                <p className="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM</p>
-                <p className="text-gray-600">Saturday: 10:00 AM - 4:00 PM</p>
-                <p className="text-gray-600">Sunday: Closed</p>
+            {/* Office Hours */}
+            <div className="bg-white rounded-3xl shadow-md p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Office Hours</h2>
+              <div className="space-y-2 text-gray-600">
+                <p>Monday - Friday: 9:00 AM – 6:00 PM</p>
+                <p>Saturday: 10:00 AM – 4:00 PM</p>
+                <p>Sunday: Closed</p>
               </div>
             </div>
           </div>
@@ -212,4 +159,4 @@ export default function Contact() {
       </div>
     </div>
   );
-} 
+}

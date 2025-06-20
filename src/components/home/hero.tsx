@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Stethoscope } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -13,20 +13,29 @@ export default function Hero() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
-            Your Trusted Source for{' '}
+            Smart Healthcare at Your Fingertips{' '}
             <span className="relative">
-              <span className="relative z-10 text-blue-600">Medical Information</span>
+              <span className="relative z-10 text-blue-600">with AI-Powered Guidance</span>
               <span className="absolute bottom-2 left-0 right-0 h-3 bg-blue-100 transform -rotate-1" />
             </span>
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Access comprehensive, reliable, and up-to-date information about medicines
-            for educational purposes.
+          <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            Instantly check symptoms using our AI assistant, explore all types of medicines with
+            complete details, and chat directly with AI to understand any medicine better. Your
+            one-stop destination for smarter, faster healthcare decisions.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link
+              href="/symptom-checker"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-blue-200"
+            >
+              <Stethoscope className="mr-2 h-5 w-5" />
+              Check Your Symptoms
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+            <Link
               href="/medicines"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-blue-200"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-white text-blue-600 hover:bg-blue-50 transition-all border-2 border-blue-100 hover:border-blue-200"
             >
               Explore Medicines
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -43,4 +52,4 @@ export default function Hero() {
       </div>
     </section>
   );
-} 
+}

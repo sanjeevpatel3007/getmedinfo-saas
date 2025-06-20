@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link';
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Stethoscope } from 'lucide-react';
 
 
 const Navbar = () => {
@@ -9,6 +9,7 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Home', href: '/' },
+    { name: 'Symptom Checker', href: '/symptom-checker', icon: Stethoscope },
     { name: 'Medicines', href: '/medicines' },
     { name: 'Categories', href: '/categories' },
     { name: 'About', href: '/about' },
@@ -31,8 +32,11 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className={`text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-1 ${
+                  item.icon ? 'bg-blue-50 hover:bg-blue-100' : ''
+                }`}
               >
+                {item.icon && <item.icon className="w-4 h-4" />}
                 {item.name}
               </Link>
             ))}
@@ -58,9 +62,12 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium"
+                className={`text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium flex items-center gap-2 ${
+                  item.icon ? 'bg-blue-50 hover:bg-blue-100' : ''
+                }`}
                 onClick={() => setIsOpen(false)}
               >
+                {item.icon && <item.icon className="w-4 h-4" />}
                 {item.name}
               </Link>
             ))}
